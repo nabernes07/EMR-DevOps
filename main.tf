@@ -27,32 +27,31 @@ resource "aws_iam_policy" "nonprod_policy" {
 
   policy = <<EOF
 {
-    Version = "2012-10-17"
-    Statement = [
-      {
-
-        Effect = "Allow"
-        Action = [
-          "s3:GetObject",
-          "s3:ListBucket"
-        ],
-        Resource = [
-          "arn:aws:s3:::*.elasticmapreduce",
-          "arn:aws:s3:::*.elasticmapreduce/*"
-        ]
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "s3:*"
-        ]
-        Resource = [
-          aws_s3_bucket.emr-serverless-bucket.arn,
-          "arn:aws:s3:::ecs-terraform-bernes/*"
-        ]
-      }
-    ]
-  }
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::*.elasticmapreduce",
+        "arn:aws:s3:::*.elasticmapreduce/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::ecs-terraform-bernes",
+        "arn:aws:s3:::ecs-terraform-bernes/*"
+      ]
+    }
+  ]
+}
 EOF
 }
 

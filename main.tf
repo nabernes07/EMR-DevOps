@@ -89,8 +89,8 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
   }
 
   maximum_capacity {
-    cpu    = var.cpu
-    memory = var.memory
+    cpu    = var.maximum_cpu
+    memory = var.maximum_memory
   }
 
   tags = {

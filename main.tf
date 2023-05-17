@@ -88,25 +88,24 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
   }
 
   maximum_capacity {
-    cpu    = "2000 vCPU"
+    cpu    = "2000 v"
     memory = "10000 GB"
   }
 
   network_configuration {
-    subnet_ids         = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
-    security_group_ids = ["sg-0123456789abcdef0", "sg-0123456789abcdef1"]
+        subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
 }
 
 tags = {
-       "nbcu:application-name" = "uws"
-        "nbcu:environment-type" = "non-prod"
-   }
+"nbcu:application-name" = "uws"
+"nbcu:environment-type" = "non-prod"
+}
 }
 
 terraform {
-    backend "s3" {
-    bucket = "ecs-terraform-bernes"
-    key = "EMR-DevOps/terraform.tfstate"
-    region = "ap-south-1"
-  }
+backend "s3" {
+bucket = "ecs-terraform-bernes"
+key = "EMR-DevOps/terraform.tfstate"
+region = "ap-south-1"
+}
 }

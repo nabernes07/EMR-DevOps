@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "ap-south-1"
+}
+
 resource "aws_iam_role" "emr_studio_role" {
   name = "emr-studio-role"
   assume_role_policy = <<EOF
@@ -58,7 +62,7 @@ resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
 terraform {
   backend "s3" {
     bucket = "ecs-terraform-bernes"
-    key    = "EMR-DevOps/terraform.tfstate"
+    key    = "EMR-DevOps/new/terraform.tfstate"
     region = "ap-south-1"
   }
 }

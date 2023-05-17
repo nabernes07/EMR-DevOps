@@ -27,30 +27,57 @@ resource "aws_iam_policy" "nonprod_policy" {
 
   policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "arn:aws:s3:::*.elasticmapreduce",
-        "arn:aws:s3:::*.elasticmapreduce/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": [
-        "arn:aws:s3:::ecs-terraform-bernes",
-        "arn:aws:s3:::ecs-terraform-bernes/*"
-      ]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadAccessForEMRSamples",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::*.elasticmapreduce",
+                "arn:aws:s3:::*.elasticmapreduce/*"
+            ]
+        },
+        {
+            "Sid": "FullAccessToOutputBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::*",
+                "arn:aws:s3:::*/*"
+            ]
+        },
+        {
+            "Sid": "GlueCreateAndReadDataCatalog",
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetDatabase",
+                "glue:CreateDatabase",
+                "glue:GetDataBases",
+                "glue:CreateTable",
+                "glue:GetTable",
+                "glue:UpdateTable",
+                "glue:DeleteTable",
+                "glue:GetTables",
+                "glue:GetPartition",
+                "glue:GetPartitions",
+                "glue:CreatePartition",
+                "glue:BatchCreatePartition",
+                "glue:GetUserDefinedFunctions"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
 }
 EOF
 }

@@ -40,12 +40,16 @@ resource "aws_iam_role_policy" "emr_notebook_role_policy" {
         "s3:ListBucket",
         "s3:GetObject"
       ],
-      "Resource": "arn:aws:s3:::ecs-terraform-bernes/*"
+      "Resource": [
+        "arn:aws:s3:::ecs-terraform-bernes",
+        "arn:aws:s3:::ecs-terraform-bernes/*"
+      ]
     }
   ]
 }
 EOF
 }
+
 
 resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   auth_mode                   = "IAM"

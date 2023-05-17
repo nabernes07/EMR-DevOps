@@ -50,13 +50,12 @@ resource "aws_iam_role_policy" "emr_notebook_role_policy" {
 EOF
 }
 
-
 resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   auth_mode                   = "IAM"
   default_s3_location         = "s3://ecs-terraform-bernes/emr-serverless/"
   engine_security_group_id    = "sg-0cab79414ed325660"
   name                        = "uws-emrserverless-studio-nonprod"
-  service_role                = aws_iam_role.emr_notebook_role_policy.arn
+  service_role                = aws_iam_role.emr_notebook_role.arn
   subnet_ids                  = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a"]
   vpc_id                      = "vpc-033ab8d7e34db0f84"
   workspace_security_group_id = "sg-0e63af6afb024313a"
@@ -101,10 +100,12 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
   }
 
   tags = {
-    "nbcu:application-name"   = "uws"
-    "nbcu:environment-type" = "non-prod"
-  }
+    "nbcu:application-name"     = "uws"
+    "nbcu:environment-type"     ="non-prod"
+``}
 }
+
+
 
 terraform {
     backend "s3" {

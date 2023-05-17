@@ -73,6 +73,10 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
         cpu    = "4 vCPU"
         memory = "20 GB"
       }
+
+      network_configuration {
+        subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
+      }
     }
   }
 
@@ -85,16 +89,16 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
         cpu    = "4 vCPU"
         memory = "20 GB"
       }
+
+      network_configuration {
+        subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
+      }
     }
   }
 
   maximum_capacity {
     cpu    = "2000 vCPU"
     memory = "10000 GB"
-  }
-
-  network_configuration = {
-    subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
   }
 
   tags = {

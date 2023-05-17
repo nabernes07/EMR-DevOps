@@ -30,6 +30,13 @@ resource "aws_iam_policy" "nonprod_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "AssumeRolePermission",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::068003677592:role/nonprod-role"
+    },
+    {
+      "Sid": "S3Permissions",
       "Effect": "Allow",
       "Action": [
         "s3:ListBucket",

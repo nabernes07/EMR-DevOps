@@ -60,7 +60,7 @@ resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
 }
 
 resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" {
-  name          = var.application_name
+  name          = var.application
   release_label = "emr-6.9.0"
   type          = "spark"
 

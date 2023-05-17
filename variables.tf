@@ -48,7 +48,7 @@ variable "environment_type" {
   description = "description"
 }
 
-variable "application_name" {
+variable "application" {
   type        = string
   default     = "uws"
   description = "description"

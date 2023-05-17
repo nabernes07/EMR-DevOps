@@ -6,18 +6,17 @@ resource "aws_iam_role" "nonprod_role" {
   name               = "nonprod-role"
   assume_role_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "emr-containers.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
+      Version = "2012-10-17",
+      Statement = [
+        {
+          Action = "sts:AssumeRole"
+          Principal = {
+            Service = "emr-serverless.amazonaws.com"
+          }
+          Effect = "Allow"
+        }
+      ]
     }
-  ]
-}
 EOF
 }
 
@@ -27,19 +26,32 @@ resource "aws_iam_policy" "nonprod_policy" {
 
   policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetObject",
-        "s3:PutObject"
-      ],
-      "Resource": "arn:aws:s3:::ecs-terraform-bernes/*"
-    }
-  ]
-}
+    Version = "2012-10-17"
+    Statement = [
+      {
+
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "arn:aws:s3:::*.elasticmapreduce",
+          "arn:aws:s3:::*.elasticmapreduce/*"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:*"
+        ]
+        Resource = [
+          aws_s3_bucket.emr-serverless-bucket.arn,
+          "arn:aws:s3:::ecs-terraform-bernes/*"
+        ]
+      }
+    ]
+  }
 EOF
 }
 

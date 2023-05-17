@@ -102,7 +102,7 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
   tags = {
     "nbcu:application-name"     = "uws"
     "nbcu:environment-type"     ="non-prod"
-``}
+  }
 }
 
 

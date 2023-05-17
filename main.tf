@@ -26,39 +26,40 @@ resource "aws_iam_policy" "nonprod_policy" {
   description = "Policy for EMR Studio"
 
   policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::068003677592:role/nonprod-role"
-            },
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::aws-emr-resources-068003677592-ap-south-1"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::068003677592:role/EMR_DefaultRole"
-            },
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::aws-emr-resources-068003677592-ap-south-1/*"
-            ]
-        }
-    ]
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::068003677592:role/nonprod-role"
+      },
+      "Action": [
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::aws-emr-resources-068003677592-ap-south-1"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::068003677592:role/EMR_DefaultRole"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::aws-emr-resources-068003677592-ap-south-1/*"
+      ]
+    }
+  ]
 }
 EOF
 }
+
 
 resource "aws_iam_role_policy_attachment" "emr_studio_role_policy_attachment" {
   role       = aws_iam_role.nonprod_role.name

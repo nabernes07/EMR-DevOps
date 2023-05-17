@@ -57,6 +57,10 @@ resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   subnet_ids                  = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a"]
   vpc_id                      = "vpc-033ab8d7e34db0f84"
   workspace_security_group_id = "sg-0cab79414ed325660"
+
+  network_configuration {
+    subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
+  }
 }
 
 resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" {
@@ -73,10 +77,6 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
         cpu    = "4 vCPU"
         memory = "20 GB"
       }
-
-      network_configuration {
-        subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
-      }
     }
   }
 
@@ -88,10 +88,6 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
       worker_configuration {
         cpu    = "4 vCPU"
         memory = "20 GB"
-      }
-
-      network_configuration {
-        subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
       }
     }
   }

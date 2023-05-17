@@ -7,16 +7,14 @@ resource "aws_iam_role" "nonprod_role" {
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "emr-serverless.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  "Statement": [{
+    "Sid": "",
+    "Effect": "Allow",
+    "Principal": {
+      "Service": "elasticmapreduce.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole"
+  }]
 }
 EOF
 }
@@ -27,57 +25,17 @@ resource "aws_iam_policy" "nonprod_policy" {
 
   policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "ReadAccessForEMRSamples",
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::*.elasticmapreduce",
-                "arn:aws:s3:::*.elasticmapreduce/*"
-            ]
-        },
-        {
-            "Sid": "FullAccessToOutputBucket",
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:ListBucket",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::*",
-                "arn:aws:s3:::*/*"
-            ]
-        },
-        {
-            "Sid": "GlueCreateAndReadDataCatalog",
-            "Effect": "Allow",
-            "Action": [
-                "glue:GetDatabase",
-                "glue:CreateDatabase",
-                "glue:GetDataBases",
-                "glue:CreateTable",
-                "glue:GetTable",
-                "glue:UpdateTable",
-                "glue:DeleteTable",
-                "glue:GetTables",
-                "glue:GetPartition",
-                "glue:GetPartitions",
-                "glue:CreatePartition",
-                "glue:BatchCreatePartition",
-                "glue:GetUserDefinedFunctions"
-            ],
-            "Resource": [
-                "*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Sid": "StudioAccess",
+    "Effect": "Allow",
+    "Action": [
+      "emr-containers:StartJobRun",
+      "emr-containers:DescribeJobRun",
+      "emr-containers:CancelJobRun"
+    ],
+    "Resource": "*"
+  }]
 }
 EOF
 }

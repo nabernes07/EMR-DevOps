@@ -50,7 +50,7 @@ resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   default_s3_location         = "s3://ecs-terraform-bernes/test"
   engine_security_group_id    = "sg-049092e56541cf6d8"
   name                        = "uws-emrserverless-studio-nonprod"
-  service_role                = aws_iam_role.nonprod_role.arn
+  service_role                = "arn:aws:iam::aws:policy/aws-service-role/AmazonEMRContainersServiceRolePolicy"
   subnet_ids                  = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a"]
   vpc_id                      = "vpc-033ab8d7e34db0f84"
   workspace_security_group_id = "sg-0cab79414ed325660"

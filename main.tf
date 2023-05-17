@@ -6,17 +6,18 @@ resource "aws_iam_role" "nonprod_role" {
   name               = "nonprod-role"
   assume_role_policy = <<EOF
 {
-      Version = "2012-10-17",
-      Statement = [
-        {
-          Action = "sts:AssumeRole"
-          Principal = {
-            Service = "emr-serverless.amazonaws.com"
-          }
-          Effect = "Allow"
-        }
-      ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "emr-serverless.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
     }
+  ]
+}
 EOF
 }
 

@@ -26,26 +26,36 @@ resource "aws_iam_policy" "nonprod_policy" {
   description = "Policy for EMR Studio"
 
   policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AssumeRolePermission",
-      "Effect": "Allow",
-      "Action": "iam:PassRole",
-      "Resource": "arn:aws:iam::068003677592:role/nonprod-role"
-    },
-    {
-      "Sid": "S3Permissions",
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetObject",
-        "s3:PutObject"
-      ],
-      "Resource": "arn:aws:s3:::ecs-terraform-bernes/*"
-    }
-  ]
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::068003677592:role/nonprod-role"
+            },
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::aws-emr-resources-068003677592-ap-south-1"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::068003677592:role/EMR_DefaultRole"
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::aws-emr-resources-068003677592-ap-south-1/*"
+            ]
+        }
+    ]
 }
 EOF
 }

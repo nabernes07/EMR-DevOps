@@ -1,3 +1,7 @@
+provider "aws" {
+  region ="ap-south-1"
+}
+
 resource "aws_iam_role" "emr_notebook_role" {
   name = "emr-notebook-role"
 
@@ -25,12 +29,12 @@ resource "aws_iam_role_policy_attachment" "emr_notebook_role_policy_attachment" 
 
 resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   auth_mode                   = "IAM"
-  default_s3_location         = "s3://cloudops-emrserverless/emr-serverless/"
-  engine_security_group_id    = "sg-077a2d1f378103407"
+  default_s3_location         = "s3://ecs-terraform-bernes/emr-serverless/"
+  engine_security_group_id    = "sg-0cab79414ed325660"
   name                        = "uws-emrserverless-studio-nonprod"
   service_role                = aws_iam_role.emr_notebook_role.arn
-  subnet_ids                  = ["subnet-0091d45f89f2e267b", "subnet-01fe66d8d5b0efb18"]
-  vpc_id                      = "vpc-006438faf6005e56c"
+  subnet_ids                  = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a"]
+  vpc_id                      = "vpc-033ab8d7e34db0f84"
   workspace_security_group_id = "sg-0e63af6afb024313a"
 }
 
@@ -68,12 +72,20 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
     memory = "10000 GB"
   }
 
-  network_configuration = {
-    subnet_ids = ["subnet-04678cf437bfdfc99", "subnet-0702bed9041a4a61e", "subnet-0007ae6c2e9652b76"]
+  network_configuration {
+    subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
   }
 
   tags = {
-    "nbcu:application-name"    = "uws"
-    "nbcu:environment-type"    = "non-prod"
+    "nbcu:application-name"   = "uws"
+    "nbcu:environment-type" = "non-prod"
+  }
+}
+
+terraform {
+  backend "s3" {
+    bucket = "ecs-terraform-bernes"
+    key    = "EMR-DevOps/terraform.tfstate"
+    region = "ap-south-1"
   }
 }

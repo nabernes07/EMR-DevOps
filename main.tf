@@ -2,31 +2,6 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-resource "aws_iam_role" "emr_notebook_role" {
-  name = "emr-notebook-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "elasticmapreduce.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy_attachment" "emr_notebook_role_policy_attachment" {
-  role       = aws_iam_role.emr_notebook_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceEditorsRole"
-}
-
 resource "aws_iam_role_policy" "emr_notebook_role_policy" {
   name   = "emr-notebook-role-policy"
   role   = aws_iam_role.emr_notebook_role.name
@@ -55,7 +30,7 @@ resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   default_s3_location         = "s3://ecs-terraform-bernes/emr-serverless/"
   engine_security_group_id    = "sg-0cab79414ed325660"
   name                        = "uws-emrserverless-studio-nonprod"
-  service_role                = aws_iam_role.emr_notebook_role.arn
+  service_role                = "arn:aws:iam::068003677592:role/aws-service-role/ops.emr-serverless.amazonaws.com/AWSServiceRoleForAmazonEMRServerless"
   subnet_ids                  = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a"]
   vpc_id                      = "vpc-033ab8d7e34db0f84"
   workspace_security_group_id = "sg-0e63af6afb024313a"

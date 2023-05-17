@@ -13,7 +13,7 @@ resource "aws_iam_role" "emr_notebook_role" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "Service": "elasticmapreduce.amazonaws.com"
+        "Service": "*"
       },
       "Action": "sts:AssumeRole"
     }

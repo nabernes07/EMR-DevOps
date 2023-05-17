@@ -96,8 +96,8 @@ network_configuration = {
     subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
   }
   tags = {
-    nbcu:application-name = "uws"
-    nbcu:enviornment-type = "non-prod"
+     application-name = "uws"
+     enviornment-type = "non-prod"
   }
 }
 

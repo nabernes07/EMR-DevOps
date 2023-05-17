@@ -1,0 +1,32 @@
+name: Terraform-Apply   
+
+
+on:
+  push:
+    branches: main
+env:
+  AWS_ACCESS_KEY_ID:  AKIAQ7VKVYWMLCGEFFLX
+  AWS_SECRET_ACCESS_KEY:  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 
+  AWS_REGION: ap-south-1
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Terraform Init
+        id: init
+        run: terraform init 
+      
+      - name: Terraform plan
+        id: plan
+        run: terraform plan
+        
+      - name: Terraform apply
+        id: apply
+        run: terraform apply -auto-approve
+        
+      - name: Terraform destroy
+        id: destroy
+        run: terraform destroy -auto-approve

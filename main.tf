@@ -34,7 +34,6 @@ resource "aws_iam_policy" "emr_studio_policy" {
       ],
       "Resource": "arn:aws:s3:::ecs-terraform-bernes/*"
     }
-    // Add more permissions as needed
   ]
 }
 EOF

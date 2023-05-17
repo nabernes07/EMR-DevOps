@@ -1,5 +1,5 @@
 provider "aws" {
-  region ="ap-south-1"
+  region = "ap-south-1"
 }
 
 resource "aws_iam_role" "emr_notebook_role" {
@@ -77,7 +77,7 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
   }
 
   tags = {
-    "nbcu:application-name"   = "uws"
+    "nbcu:application-name"     = "uws"
     "nbcu:environment-type" = "non-prod"
   }
 }

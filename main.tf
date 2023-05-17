@@ -25,7 +25,13 @@ EOF
 resource "aws_iam_role_policy_attachment" "emr_notebook_role_policy_attachment" {
   role       = aws_iam_role.emr_notebook_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceEditorsRole"
+
+  # Add S3 bucket policy to allow access
+  policy {
+    policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  }
 }
+
 
 resource "aws_emr_studio" "uws-emrserverless-studio-nonprod" {
   auth_mode                   = "IAM"
@@ -73,7 +79,8 @@ resource "aws_emrserverless_application" "click_log_loggregator_emr_serverless" 
   }
 
   network_configuration {
-    subnet_ids = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
+    subnet_ids           = ["subnet-0acd8897043418623", "subnet-0e4ad91050601aa5a", "subnet-08997f2bcdad53c98"]
+    security_group_ids   = ["sg-0123456789abcdef0", "sg-0123456789abcdef1"]
   }
 
   tags = {

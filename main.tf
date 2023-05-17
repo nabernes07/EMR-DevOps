@@ -31,9 +31,6 @@ resource "aws_iam_policy" "nonprod_policy" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::068003677592:role/nonprod-role"
-      },
       "Action": [
         "s3:ListBucket"
       ],
@@ -43,9 +40,6 @@ resource "aws_iam_policy" "nonprod_policy" {
     },
     {
       "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::068003677592:role/EMR_DefaultRole"
-      },
       "Action": [
         "s3:PutObject",
         "s3:GetObject",
@@ -59,6 +53,7 @@ resource "aws_iam_policy" "nonprod_policy" {
 }
 EOF
 }
+
 
 
 resource "aws_iam_role_policy_attachment" "emr_studio_role_policy_attachment" {

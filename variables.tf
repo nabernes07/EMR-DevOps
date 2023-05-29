@@ -17,7 +17,7 @@ variable "subnet_ids" {
 
 variable "engine_security_group_id" {
   description = "List of security group IDs"
-  type        = list(string)
+  type        = string
 }
 
 variable "name" {
@@ -28,12 +28,12 @@ variable "name" {
 
 variable "vpc_id" {
   description = "List of security group IDs"
-  type        = list(string)
+  type        = string
 }
 
 variable "workspace_security_group_id" {
   description = "List of security group IDs"
-  type        = list(string)
+  type        = string
 }
 
 variable "application_name" {
